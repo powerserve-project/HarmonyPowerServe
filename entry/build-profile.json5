@@ -1,0 +1,52 @@
+{
+  "apiType": "stageMode",
+  "buildOption": {
+    "externalNativeOptions": {
+      "path": "./src/main/cpp/CMakeLists.txt",
+      "arguments": [
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DPOWERSERVE_WITH_QNN=OFF",
+        "-DPOWERSERVE_EXCEPTION_ABORT=ON",
+        "-DPOWERSERVE_SERVE_MULTIMODEL=OFF",
+        "-DPOWERSERVE_WITH_QNN=ON",
+        "-DOHOS_STL=c++_static",
+        "-DOHOS_PLATFORM=OHOS"
+      ],
+      "cppFlags": "",
+    },
+    "sourceOption": {
+      "workers": [
+        "./src/main/ets/model/Worker.ts"
+      ]
+    }
+  },
+  "buildOptionSet": [
+    {
+      "name": "release",
+      "arkOptions": {
+        "obfuscation": {
+          "ruleOptions": {
+            "enable": false,
+            "files": [
+              "./obfuscation-rules.txt"
+            ]
+          }
+        }
+      },
+      "nativeLib": {
+        "debugSymbol": {
+          "strip": true,
+          "exclude": []
+        }
+      }
+    },
+  ],
+  "targets": [
+    {
+      "name": "default"
+    },
+    {
+      "name": "ohosTest",
+    }
+  ]
+}

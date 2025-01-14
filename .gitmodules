@@ -1,0 +1,3 @@
+[submodule "entry/src/main/cpp/PowerServe"]
+	path = entry/src/main/cpp/PowerServe
+	url = https://github.com/powerserve-project/PowerServe.git

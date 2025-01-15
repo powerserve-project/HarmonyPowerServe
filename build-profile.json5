@@ -21,21 +21,6 @@
         "name": "release"
       }
     ],
-    "signingConfigs": [
-      {
-        "name": "default",
-        "type": "HarmonyOS",
-        "material": {
-          "certpath": "C:\\Users\\SIT\\.ohos\\config\\default_MyApplication_HQrcyAWiukTI-CYA_pXZR1b_Oz1VnEuIDk__MU8LipA=.cer",
-          "storePassword": "0000001B0B7FD0B9293478E05498FE3A7D643174F38882D934A0D7E334F6B988FCD10F0E5E8B0AFBC799F9",
-          "keyAlias": "debugKey",
-          "keyPassword": "0000001BCBC92CA95B4E37D9A25362CC49DDED464EEC9B4845EFDBEE4A923A1B6AE8BB487DE1E9686208D8",
-          "profile": "C:\\Users\\SIT\\.ohos\\config\\default_MyApplication_HQrcyAWiukTI-CYA_pXZR1b_Oz1VnEuIDk__MU8LipA=.p7b",
-          "signAlg": "SHA256withECDSA",
-          "storeFile": "C:\\Users\\SIT\\.ohos\\config\\default_MyApplication_HQrcyAWiukTI-CYA_pXZR1b_Oz1VnEuIDk__MU8LipA=.p12"
-        }
-      }
-    ]
   },
   "modules": [
     {

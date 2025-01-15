@@ -1,0 +1,6 @@
+{
+    "executables": "bin",
+    "hparams_config": "hparams.json",
+    "model_main": "llama-3-2-1b",
+    "model_draft": ""
+}

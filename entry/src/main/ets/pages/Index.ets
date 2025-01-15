@@ -1,10 +1,9 @@
-import { url, worker } from '@kit.ArkTS';
+import { worker } from '@kit.ArkTS';
 import { resourceManager } from '@kit.LocalizationKit';
 import { fileIo as fs } from '@kit.CoreFileKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { window } from '@kit.ArkUI';
 import { KeyboardAvoidMode } from '@ohos.arkui.UIContext'
-import { inputMethod } from '@kit.IMEKit'
 import { BusinessError, request } from '@kit.BasicServicesKit';
 import promptAction from '@ohos.promptAction'
 
@@ -28,7 +27,7 @@ struct Index {
     @State current_model: string     = ""
     prev_model: string = ""
 
-    private model_base_url = "https://hf-mirror.com"
+    private model_base_url = this.getResourceString($r('app.string.huggingface_url'))
     private model_url_map  = new Map([
         ["Llama-3.2-1B",        "PowerServe/Llama-3.2-1B-PowerServe-QNN29-8G4"],
         ["SmallThinker-0.5B",   "PowerServe/SmallThinker-0.5B-PowerServe-QNN29-8G4"],
@@ -38,22 +37,26 @@ struct Index {
     @State jsWorkerInPutStr: string = '';
     @State status: "Idle" | "Load" | "Infer" = "Idle";
     @State messages: Message[] = [];
-    @State latest_message: Message = { role: "assistant", content: `Welcome to use HarmonyPowerServe.` };
+    @State latest_message: Message = { role: "assistant", content: this.getResourceString($r("app.string.welcome_words")) }
     @State num_download_task: number = 0;
 
     myWorker: worker.ThreadWorker = new worker.ThreadWorker("entry/ets/model/Worker.ts");
     private sandboxFilesDir: string = getContext(this).filesDir;
 
+    getResourceString(src: Resource) {
+        return getContext(this).resourceManager.getStringSync(src) as string
+    }
+
     build() {
         Column() {
 
             List() {
-                ForEach(this.messages, (message: Message, index: number) => {
+                ForEach(this.messages, (_message: Message, index: number) => {
                     ListItem() {
                         if (this.messages[index].role === 'user') {
                             Row() {
                                 Text(this.messages[index].content)
-                                    .backgroundColor('#ff8ccee2')
+                                    .backgroundColor('#ff99c6d2')
                                     .border(
                                         {
                                             radius: 10
@@ -66,7 +69,7 @@ struct Index {
                             .width('95%')
                         } else {
                             Text(this.messages[index].content)
-                                .backgroundColor('#ff8f7ee3')
+                                .backgroundColor('#ffb3a7f1')
                                 .border(
                                     {
                                         radius: 10
@@ -80,7 +83,7 @@ struct Index {
 
                 ListItem() {
                     Text(this.latest_message.content)
-                        .backgroundColor('#ff8f7ee3')
+                        .backgroundColor('#ffb3a7f1')
                         .border(
                             {
                                 radius: 10
@@ -107,7 +110,7 @@ struct Index {
                     direction: GridRowDirection.Row
                 }) {
                     GridCol({ span: 3, offset: 0 }) {
-                        Text(`Status: ${this.status}`)
+                        Text(`${this.getResourceString($r('app.string.status'))}: ${this.getStatusString(this.status)}`)
                             .width("100%")
                             .height("40vp")
                             .fontFamily("HarmonyHeiTi-Medium")
@@ -124,10 +127,11 @@ struct Index {
                             .selected(0)
                             .width("100%")
                             .height("40vp")
-                            .onSelect(async (index: number, value: string) => {
+                            .accessibilityTextHint(this.getResourceString($r("app.string.model")))
+                            .onSelect(async (_index: number, value: string) => {
                                 if (this.num_download_task != 0) {
                                     promptAction.showToast({
-                                        message: `${this.prev_model} is on downloading, please wait`
+                                        message: `${this.prev_model} ${this.getResourceString($r("app.string.warn_download_model"))}`
                                     });
                                     this.current_model = this.prev_model
                                     return;
@@ -183,45 +187,36 @@ struct Index {
 
                     GridCol({ span: 1, offset: 0 }) {
                         Button() {
-                            Text("Start")
-                                .width("100%")
+                            Image($r('app.media.send'))
+                                .width("50%")
                                 .height("22")
-                                .fontFamily("HarmonyHeiTi-Medium")
-                                .fontSize("14fp")
-                                .fontColor("#FFFFFF")
-                                .textAlign(TextAlign.Center)
-                                .lineHeight(22)
-                                .fontWeight(500)
                         }
+                        .width("100%")
                         .height("40vp")
                         .borderRadius("20vp")
-                        .backgroundColor("#007DFF")
+                        .backgroundColor("#ff4988ca")
                         .onClick(this.inference)
                     }
                     GridCol({ span: 1, offset: 0 }) {
                         Button() {
-                            Text("Clear")
-                                .width("100%")
+                            Image($r('app.media.clear'))
+                                .width("50%")
                                 .height("22")
-                                .fontFamily("HarmonyHeiTi-Medium")
-                                .fontSize("14fp")
-                                .fontColor("#FFFFFF")
-                                .textAlign(TextAlign.Center)
-                                .lineHeight(22)
-                                .fontWeight(500)
                         }
+                        .width("100%")
                         .height("40vp")
                         .borderRadius("20vp")
                         .backgroundColor("#ff6c834b")
                         .onClick(() => {
                             if (this.status != "Idle") {
                                 promptAction.showToast({
-                                    message: `Please wait for ongoning task finishing`
+                                    message: this.getResourceString($r("app.string.warn_busy"))
                                 })
                                 return;
                             }
+
+                            this.latest_message = { role: "assistant", content: this.getResourceString($r("app.string.welcome_words")) }
                             this.messages = []
-                            this.latest_message = { role: "assistant", content: `Welcome to use HarmonyPowerServe.` };
                         })
                     }
                 }
@@ -243,9 +238,16 @@ struct Index {
     inference = async () => {
         this.getUIContext().getFocusController().clearFocus();
 
+        if (this.current_model.length == 0) {
+            promptAction.showToast({
+                message: this.getResourceString($r("app.string.warn_select_model"))
+            })
+            return;
+        }
+
         if (this.num_download_task > 0) {
             promptAction.showToast({
-                message: `Model ${this.current_model} is downloading, please wait...`
+                message: `${this.current_model} ${this.getResourceString($r("app.string.warn_download_model"))}`
             })
             return;
         }
@@ -309,7 +311,7 @@ struct Index {
         hilog.warn(0x0000, 'downloadFile',
             'Failed to find model file ' + filename + ' at ' + targetPath + ', try to download one');
         promptAction.showToast({
-            message: 'Failed to find model file ' + filename + ', try to download one'
+            message: this.getResourceString($r("app.string.warn_find_file")) + filename + ', ' + this.getResourceString($r("app.string.info_download"))
         })
         this.num_download_task += 1
 
@@ -356,7 +358,7 @@ struct Index {
                     })
                 } else {
                     promptAction.showToast({
-                        message: `${filename} is downloaded, left #file: ${this.num_download_task}`
+                        message: `${filename} ${this.getResourceString($r("app.string.info_download_files"))} ${this.num_download_task}`
                     })
                 }
             });
@@ -408,6 +410,17 @@ struct Index {
             len = await fs.read(data.fd, buffer, { offset: data.offset + off, length: buffSize });
         }
         await fs.close(destFile.fd);
+    }
+
+
+    getStatusString(status: "Idle" | "Load" | "Infer"): string {
+        if (status == "Load") {
+            return this.getResourceString($r('app.string.status_load'))
+        } else if (status == "Infer") {
+            return this.getResourceString($r('app.string.status_infer'))
+        }
+        return this.getResourceString($r('app.string.status_idle'))
+
     }
 }
 

@@ -1,0 +1,17 @@
+{
+    "n_threads": 4,
+    "batch_size": 1024,
+    "sampler": {
+        "seed": 233,
+        "temperature": 0.2,
+        "top_p": 0.9,
+        "top_k": 40,
+        "min_keep": 0,
+        "penalty_last_n": 1024,
+        "penalty_repeat": 1.1,
+        "penalty_freq": 0,
+        "penalty_present": 0,
+        "penalize_nl": false,
+        "ignore_eos": false
+    }
+}

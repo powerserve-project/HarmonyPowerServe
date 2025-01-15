@@ -1,0 +1,88 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "PowerServe"
+    },
+    {
+      "name": "reason",
+      "value": "read model"
+    },
+    {
+      "name": "media_internet_permission",
+      "value": "download model"
+    },
+    {
+      "name": "button_start",
+      "value": "Start"
+    },
+    {
+      "name": "button_clear",
+      "value": "Clear"
+    },
+    {
+      "name": "huggingface_url",
+      "value": "https://huggingface.co"
+    },
+    {
+      "name": "status_idle",
+      "value": "Idle"
+    },
+    {
+      "name": "status_infer",
+      "value": "Infer"
+    },
+    {
+      "name": "status_load",
+      "value": "Load"
+    },
+    {
+      "name": "status",
+      "value": "status"
+    },
+    {
+      "name": "model",
+      "value": "model"
+    },
+    {
+      "name": "welcome_words",
+      "value": "Welcome to use PowerServe!"
+    },
+    {
+      "name": "warn_select_model",
+      "value": "Do select model before start inference."
+    },
+    {
+      "name": "warn_download_model",
+      "value": "model is downloading, please wait..."
+    },
+    {
+      "name": "info_download_files",
+      "value": "file is downloaded. Left #file: "
+    },
+    {
+      "name": "warn_download_fail",
+      "value": "Failed to download "
+    },
+    {
+      "name": "warn_find_file",
+      "value": "Failed to find "
+    },
+    {
+      "name": "info_download",
+      "value": "try to download"
+    },
+    {
+      "name": "warn_busy",
+      "value": "Please wait for ongoning task finishing."
+    }
+  ]
+}

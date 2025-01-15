@@ -1,0 +1,88 @@
+{
+  "string": [
+    {
+      "name": "reason",
+      "value": "加载模型"
+    },
+    {
+      "name": "media_internet_permission",
+      "value": "下载模型"
+    },
+    {
+      "name": "module_desc",
+      "value": "模块描述"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "描述"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "PowerServe"
+    },
+    {
+      "name": "button_clear",
+      "value": "清除"
+    },
+    {
+      "name": "button_start",
+      "value": "开始"
+    },
+    {
+      "name": "huggingface_url",
+      "value": "https://hf-mirror.com"
+    },
+    {
+      "name": "status_idle",
+      "value": "空闲"
+    },
+    {
+      "name": "status_infer",
+      "value": "推理"
+    },
+    {
+      "name": "status_load",
+      "value": "加载"
+    },
+    {
+      "name": "status",
+      "value": "状态"
+    },
+    {
+      "name": "model",
+      "value": "模型"
+    },
+    {
+      "name": "welcome_words",
+      "value": "欢迎使用 PowerServe！"
+    },
+    {
+      "name": "warn_select_model",
+      "value": "请先选择推理模型。"
+    },
+    {
+      "name": "warn_download_model",
+      "value": "模型下载中，请稍候..."
+    },
+    {
+      "name": "info_download_files",
+      "value": "文件已下载。剩余文件数："
+    },
+    {
+      "name": "warn_download_fail",
+      "value": "下载失败："
+    },
+    {
+      "name": "warn_find_file",
+      "value": "未找到："
+    },
+    {
+      "name": "info_download",
+      "value": "尝试下载"
+    },
+    {
+      "name": "warn_busy",
+      "value": "请等待当前任务完成。"
+    }
+  ]
+}

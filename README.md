@@ -1,5 +1,9 @@
 # HarmonyPowerServe
 
+<div align="center">
+<img src="doc/images/icon.png" width="25%" height="25%">
+</div>
+
 A Harmony NEXT App using PowerServe as the LLM inference backend.
 
 ## Features

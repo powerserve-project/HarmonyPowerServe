@@ -226,7 +226,6 @@ struct Index {
 
             }
             .backgroundColor('#FFFFFFFF')
-            .backgroundBlurStyle(BlurStyle.BACKGROUND_REGULAR)
             .padding({ top: '25vp', bottom: '25vp' })
 
         }
